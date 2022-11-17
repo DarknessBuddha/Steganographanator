@@ -14,13 +14,8 @@ int main(int argc, char**argv) {
     Image image = makeImage(header, inFile);
     writeHeader(header, outFile);
 
-    char* message = decodeImage(image);
-    return 0;
 
-    printf("%s", message);
-    printf("\n");
-    
-    free(message);
+
     fclose(inFile);
     fclose(outFile);
     return 0;

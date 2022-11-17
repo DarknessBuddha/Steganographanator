@@ -40,14 +40,23 @@ void writeHeader(Header header, FILE* file){
     );
 }
 
+Image allocateImage(int height, int width){
+    Image image;
+    image.height = height;
+    image.width = width;
+    image.pixels = (Pixel**) malloc(sizeof(Pixel*) * height);
+    for(int i = 0; i < height; i++){
+        image.pixels[i] = (Pixel*) malloc(sizeof(Pixel) * width);
+    }
+    return image;
+}
+
+
 Image makeImage(Header header, FILE* file){
     Image image;
-    image.height = header.height;
-    image.width = header.width;
-    image.pixels = (Pixel**) malloc(sizeof(Pixel*) * header.height);
+    image = allocateImage(header.height, header.width);
 
     for(int i = 0; i < header.height; i++){
-        image.pixels[i] = (Pixel*) malloc(sizeof(Pixel) * image.width);
         fread(image.pixels[i], sizeof(Pixel), image.width, file);
     }
     return image;

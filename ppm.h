@@ -28,6 +28,7 @@ void writeHeader(Header header, FILE* file);
 
 // images
 Image makeImage(Header header, FILE* file);
+Image allocateImage(int height, int width);
 void freeImage(Image image);
 void writeImage(Image image, FILE* file);
 

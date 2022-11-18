@@ -36,9 +36,9 @@ Image makeEncodedImage(Image image, char* message){
     while (msgIndex < strlen(message)){
         bool* binary = charToBinary(message[msgIndex]);
         for (int k = 0; k < 3; ++k) {
-            encodedImage.pixels[i][j].red = image.pixels[i][j].red / 10 * 10 + binary[k*3];
-            encodedImage.pixels[i][j].green = image.pixels[i][j].green / 10 * 10 + binary[k*3 + 1];
-            encodedImage.pixels[i][j].blue = image.pixels[i][j].blue / 10 * 10 + binary[k*3 + 2];
+            encodedImage.pixels[i][j].red = image.pixels[i][j].red / 10 * 10 + binary[k * 3];
+            encodedImage.pixels[i][j].green = image.pixels[i][j].green / 10 * 10 + binary[k * 3 + 1];
+            encodedImage.pixels[i][j].blue = image.pixels[i][j].blue / 10 * 10 + binary[k * 3 + 2];
             j = (j + 1) % image.width;
             i = i + (j + 1) / image.width;
         }

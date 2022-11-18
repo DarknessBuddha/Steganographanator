@@ -69,7 +69,6 @@ void freeImage(Image image){
 }
 
 void writeImage(Image image, FILE* file){
-    for (int i = 0; i < image.height; ++i){
+    for (int i = 0; i < image.height; ++i)
         fwrite(image.pixels[i], sizeof(Pixel), image.width, file);
-    }
 }

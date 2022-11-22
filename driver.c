@@ -15,11 +15,16 @@ int main(int argc, char**argv) {
     Image image = getImage(header, inFile);
     writeHeader(header, outFile);
 
-    Image encodedImage = makeEncodedImage(image, "this is a new image");
+    char* message = getUserInput(header);
+    printf("%s", message);
+
+    return 0;
+
+    Image encodedImage = makeEncodedImage(image, message);
     writeImage(image, outFile);
 
-    char* message = decodeImage(encodedImage);
-    printf("%s", message);
+    message = decodeImage(encodedImage);
+    printf("%s\n", message);
 
     // free memory
     free(message);

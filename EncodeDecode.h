@@ -5,6 +5,8 @@
 #include "string.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <ctype.h>
+#include <assert.h>
 
 typedef struct Binary{
     int length;
@@ -20,4 +22,6 @@ Binary makeBinary(int length);
 Binary asciiToBinary(char ascii);
 
 char binaryToAscii(Binary binary);
+
+char* getUserInput(Header header);
 #endif //PA2_ENCODE_DECODE_H

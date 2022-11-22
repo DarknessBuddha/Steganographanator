@@ -1,7 +1,7 @@
 #include "EncodeDecode.h"
 
 char* decodeImage(Image image){
-    int maxLength = image.height * image.width / 3;
+    int maxLength = image.height * image.width / 9;
     char messageBank[maxLength];
     char* message;
     int msgIndex = 0;
@@ -80,7 +80,29 @@ Binary asciiToBinary(char ascii){
 char binaryToAscii(Binary binary){
     char ascii = 0;
     for (int i = binary.length-1; i >= binary.length-8; --i) {
-        ascii += (binary.data[i] << 8 - i);
+        ascii += (binary.data[i] << (8 - i));
     }
     return ascii;
+}
+
+
+char* getUserInput(Header header){
+    int maxLength = header.height * header.width / 9;
+    char userChoice;
+    char *userMessage = (char*) malloc (maxLength * sizeof(char) + 1);
+    
+    printf("Would you like to use the provided input message (Cats <3) or create a unique input message? y/n\n");
+    scanf("%c%*c", &userChoice);
+    userChoice = tolower(userChoice);    
+    assert(userChoice == 'y' || userChoice == 'n');
+
+    if (userChoice == 'y'){
+        strcpy(userMessage, "Cats <3");
+    }else{
+        printf("Provide a user message (max length of %d): \n", maxLength);
+        fgets(userMessage, maxLength, stdin);
+        printf("Thank you for the message! :^)\n");
+    }
+
+    return userMessage;
 }

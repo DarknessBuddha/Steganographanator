@@ -1,14 +1,23 @@
 #ifndef PA2_ENCODE_DECODE_H
 #define PA2_ENCODE_DECODE_H
+
 #include "ppm.h"
 #include "string.h"
 #include <stdlib.h>
 #include <stdbool.h>
+
+typedef struct Binary{
+    int length;
+    bool* data;
+}Binary;
+
 char* decodeImage(Image image);
 
 Image makeEncodedImage(Image image, char* message);
 
-bool* charToBinary(char letter);
+Binary makeBinary(int length);
 
-char binaryToAscii(const bool* binary);
+Binary asciiToBinary(char ascii);
+
+char binaryToAscii(Binary binary);
 #endif //PA2_ENCODE_DECODE_H

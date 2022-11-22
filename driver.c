@@ -2,6 +2,7 @@
 #include <assert.h>
 #include "ppm.h"
 #include "EncodeDecode.h"
+
 int main(int argc, char**argv) {
     assert(argc == 3);
     FILE* inFile = fopen(argv[1], "rb");
@@ -10,8 +11,8 @@ int main(int argc, char**argv) {
     assert(inFile);
     assert(outFile);
 
-    Header header = makeHeader(inFile);
-    Image image = makeImage(header, inFile);
+    Header header = getHeader(inFile);
+    Image image = getImage(header, inFile);
     writeHeader(header, outFile);
 
     Image encodedImage = makeEncodedImage(image, "this is a new image");

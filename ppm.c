@@ -1,6 +1,6 @@
 #include "ppm.h"
 // headers
-Header makeHeader(FILE* file){
+Header getHeader(FILE* file){
     Header header;
 
     fscanf(file, "%2s ", header.type);
@@ -40,7 +40,7 @@ void writeHeader(Header header, FILE* file){
     );
 }
 
-Image allocateImage(int height, int width){
+Image makeImage(int height, int width){
     Image image;
     image.height = height;
     image.width = width;
@@ -52,9 +52,9 @@ Image allocateImage(int height, int width){
 }
 
 
-Image makeImage(Header header, FILE* file){
+Image getImage(Header header, FILE* file){
     Image image;
-    image = allocateImage(header.height, header.width);
+    image = makeImage(header.height, header.width);
 
     for(int i = 0; i < header.height; i++){
         fread(image.pixels[i], sizeof(Pixel), image.width, file);

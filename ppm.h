@@ -21,14 +21,14 @@ typedef struct Image{
 }Image;
 
 // headers
-Header makeHeader(FILE* file);
+Header getHeader(FILE* file);
 void handleSpacesAndComments(FILE* file);
 void discardComments(FILE* file);
 void writeHeader(Header header, FILE* file);
 
 // images
-Image makeImage(Header header, FILE* file);
-Image allocateImage(int height, int width);
+Image getImage(Header header, FILE* file);
+Image makeImage(int height, int width);
 void freeImage(Image image);
 void writeImage(Image image, FILE* file);
 

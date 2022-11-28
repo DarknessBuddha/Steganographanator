@@ -47,13 +47,12 @@ Image makeEncodedImage(Image image, char* message){
         msgIndex++;
     }
     
-    for (; i < image.height; i++){
+    for (; i < image.height; i++, j = 0){
         for (; j < image.width; j++){
             encodedImage.pixels[i][j].red = image.pixels[i][j].red / 10 * 10;
             encodedImage.pixels[i][j].green = image.pixels[i][j].green / 10 * 10;
             encodedImage.pixels[i][j].blue = image.pixels[i][j].blue / 10 * 10;
         }
-        j = 0;
     }
 
     return encodedImage;

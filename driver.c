@@ -18,8 +18,6 @@ int main(int argc, char**argv) {
     char* message = getUserInput(header);
     printf("%s", message);
 
-    return 0;
-
     Image encodedImage = makeEncodedImage(image, message);
     writeImage(image, outFile);
 

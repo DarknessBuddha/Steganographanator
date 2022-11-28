@@ -29,7 +29,6 @@ int main(int argc, char**argv) {
     printf("%s", message);
 
     //Encodes the message into the image and writes it to the outfile
-
     Image encodedImage = makeEncodedImage(image, message);
     writeImage(image, outFile);
 

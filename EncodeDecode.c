@@ -73,17 +73,16 @@ Image makeEncodedImage(Image image, char* message){
         free(binary.data);
         msgIndex++;
     }
-    
 
+    //Sets the pixels of the encoded image to the allocated places on the image 
     for (; i < image.height; i++, j = 0){
-    //Sets the pixels of the encoded image to the allocated places on the image
         for (; j < image.width; j++){
-            encodedImage.pixels[i][j].red = 
-            image.pixels[i][j].red / 10 * 10;
-            encodedImage.pixels[i][j].green = 
-            image.pixels[i][j].green / 10 * 10;
+            encodedImage.pixels[i][j].red =
+                image.pixels[i][j].red / 10 * 10;
+            encodedImage.pixels[i][j].green =
+                image.pixels[i][j].green / 10 * 10;
             encodedImage.pixels[i][j].blue = 
-            image.pixels[i][j].blue / 10 * 10;
+                image.pixels[i][j].blue / 10 * 10;
         }
     }
 

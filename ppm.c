@@ -40,7 +40,8 @@ void handleSpacesAndComments(FILE* file){
 
 void discardComments(FILE* file){
     int buffer;
-    //While not end of line or a new line character, moves the file pointer ahead
+    //While not end of line or a new line character,
+    //moves the file pointer ahead
     while ((buffer = (fgetc(file))) != EOF && buffer != '\n');
 }
 

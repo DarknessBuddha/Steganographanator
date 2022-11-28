@@ -10,7 +10,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-//Struct that holds the type of image, width, height, and RGB value from the image header
+//Struct that holds the type of image, width, height, and
+//RGB value from the image header
 typedef struct Header{
     char type[3];
     int height;
@@ -23,14 +24,16 @@ typedef struct Pixel{
     unsigned char red, green, blue;
 }Pixel;
 
-//Struct that holds the height and width of an image and a double pointer to a 2d array of pixels
+//Struct that holds the height and width of an image and
+//a double pointer to a 2d array of pixels
 typedef struct Image{
     int height, width;
     Pixel** pixels;
 }Image;
 
 /* Parameters: file - a file pointer that was opened in main to be read from
- * Return:        output - Header struct that holds the type, height, width, and max color 
+ * Return: output - Header struct that holds the type,
+ *         height, width, and max color
  * This function takes the information from the image header and stores it
  */ 
 Header getHeader(FILE* file);
@@ -81,7 +84,8 @@ Image makeImage(int height, int width);
 /*
 Parameters: image - 2d pixel array that represents an image
 Return: void
-This function loops through and frees all memory that was allocated for the image
+This function loops through and
+frees all memory that was allocated for the image
 */
 void freeImage(Image image);
 

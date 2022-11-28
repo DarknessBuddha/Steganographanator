@@ -10,7 +10,8 @@
 #include "EncodeDecode.h"
 
 int main(int argc, char**argv) {
-    //Makes sure 3 arguments were passed in and opens a file to be read and a file to write to
+    //Makes sure 3 arguments were passed in and
+    //opens a file to be read and a file to write to
     assert(argc == 3);
     FILE* inFile = fopen(argv[1], "rb");
     FILE* outFile = fopen(argv[2], "wb");

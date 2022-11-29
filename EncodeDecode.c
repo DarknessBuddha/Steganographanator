@@ -9,7 +9,7 @@
 char* decodeImage(Image image){
     //Finds the char limit and initializes a placeholder for the message
     int maxLength = image.height * image.width / 9;
-    char messageBank[maxLength];
+    char messageBank[maxLength+1];
     char* message;
     int msgIndex = 0;
 
@@ -35,7 +35,7 @@ char* decodeImage(Image image){
             short ascii = binaryToAscii(binary);
             free(binary.data);
 
-            //If something failed (ie, caused ascii to become 0) breaks out
+            //decoding terminates when ascii value is 0 or somehow above 255
             if (ascii == 0 || ascii > 255){
                 i = image.height;
                 break;
@@ -83,7 +83,7 @@ Image makeEncodedImage(Image image, char* message){
         msgIndex++;
     }
 
-    //Sets the pixels of the encoded image to the allocated places on the image 
+    //Sets the remaining color values' last digit to zero
     for (; i < image.height; i++, j = 0){
         for (; j < image.width; j++){
             encodedImage.pixels[i][j].red =

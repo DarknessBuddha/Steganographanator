@@ -27,15 +27,16 @@ int main(int argc, char**argv) {
 
     //Gets a message from the user and prints it
     char* message = getUserInput(header);
-    printf("%s", message);
 
     //Encodes the message into the image and writes it to the outfile
     Image encodedImage = makeEncodedImage(image, message);
-    writeImage(image, outFile);
+    free(message);
+
+    writeImage(encodedImage, outFile);
 
     //Gets the message from the image and prints it
     message = decodeImage(encodedImage);
-    printf("%s\n", message);
+    printf("Your decoded message: %s\n", message);
 
     // free memory
     free(message);

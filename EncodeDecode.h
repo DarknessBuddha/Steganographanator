@@ -56,7 +56,7 @@ Binary asciiToBinary(char ascii);
  * This function takes in a string
  * of 0s and 1s and translates it into a letter in ascii
  */ 
-char binaryToAscii(Binary binary);
+short binaryToAscii(Binary binary);
 
 /* Parameters: header - a header struct that holds the image height and width
  * Return: output - a pointer to a string of
@@ -66,3 +66,10 @@ char binaryToAscii(Binary binary);
  */ 
 char* getUserInput(Header header);
 #endif //PA2_ENCODE_DECODE_H
+
+/*
+ * Parameters: None
+ * Return: None
+ * This function flushes the input buffer by reading it and discarding it
+ */
+void flushInput();

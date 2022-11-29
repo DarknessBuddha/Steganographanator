@@ -15,24 +15,28 @@ char* decodeImage(Image image){
 
     //Traverses the image and parses
     //the last bit from every pixel in each RGB channel;
-    for (int i = 0; i < image.height; ++i){
-        for (int j = 0; j < image.width; j += 3){
+    for (int i = 0; i < image.height;){
+        for (int j = 0; j < image.width;){
             //Initializes a 9 bits that will hold a binary number
             Binary binary = makeBinary(9);
             //Populates the binary with either a 1 or a 0
             for (int k = 0; k < 3; k++){
-                binary.data[k * 3] = image.pixels[i][j + k].red % 10;
-                binary.data[k * 3 + 1] = image.pixels[i][j + k].green % 10;
-                binary.data[k * 3 + 2] = image.pixels[i][j + k].blue % 10;
+                binary.data[k * 3] = image.pixels[i][j].red % 10;
+                binary.data[k * 3 + 1] = image.pixels[i][j].green % 10;
+                binary.data[k * 3 + 2] = image.pixels[i][j].blue % 10;
+
+                // increment pixel
+                i += (j + 1) / image.width;
+                j = (j + 1) % image.width;
             }
 
             //Sets a char equal to the binary translated
             //to ascii and frees the data pointer
-            char ascii = binaryToAscii(binary);
+            short ascii = binaryToAscii(binary);
             free(binary.data);
 
             //If something failed (ie, caused ascii to become 0) breaks out
-            if (ascii == 0){
+            if (ascii == 0 || ascii > 255){
                 i = image.height;
                 break;
             }
@@ -45,7 +49,7 @@ char* decodeImage(Image image){
     //Dynamically allocates room for a message and
     //copies the message from the image to it and returns it
     message = (char*) malloc(sizeof(char) * strlen(messageBank) + 1);
-    strncpy(message, messageBank, strlen(messageBank));
+    strcpy(message, messageBank);
     return message;
 }
 
@@ -63,13 +67,13 @@ Image makeEncodedImage(Image image, char* message){
         //Creates a pixel with RGB values modified with the
         //pixels from the original with a bit
         for (int k = 0; k < 3; ++k) {
-            encodedImage.pixels[i][j].red = 
+            encodedImage.pixels[i][j].red =
                 image.pixels[i][j].red / 10 * 10 + binary.data[k * 3];
             encodedImage.pixels[i][j].green = 
                 image.pixels[i][j].green / 10 * 10 + binary.data[k * 3 + 1];
             encodedImage.pixels[i][j].blue = 
                 image.pixels[i][j].blue / 10 * 10 + binary.data[k * 3 + 2];
-            
+
             //Increments i and j
             i += (j + 1) / image.width;
             j = (j + 1) % image.width;
@@ -115,12 +119,12 @@ Binary asciiToBinary(char ascii){
     return binary;
 }
 
-char binaryToAscii(Binary binary){
+short binaryToAscii(Binary binary){
     //Translates a binary to a character in ascii
     //using the bitwise operation left shift
-    char ascii = 0;
-    for (int i = binary.length-1; i >= binary.length-8; --i) {
-        ascii += (binary.data[i] << (8 - i));
+    short ascii = 0;
+    for (int i = binary.length-1; i >= 0; --i) {
+        ascii += (binary.data[i] << (binary.length - 1 - i));
     }
     return ascii;
 }
@@ -129,26 +133,37 @@ char* getUserInput(Header header){
     //Calculates the character limit and allocates memory for the user's message
     int maxLength = header.height * header.width / 9;
     char userChoice;
-    char *userMessage = (char*) malloc (maxLength * sizeof(char) + 1);
-    
+    char messageBank[maxLength + 1];
+
     //Prompts the user to either use the default message or
     //to input a message and takes in the user's choice
     printf("Would you like to use the provided input message (Cats <3)");
-    printf("or create a unique input message? y/n\n");
-    scanf("%c%*c", &userChoice);
+    printf(" or create a unique input message? y/n\n");
+    scanf("%c", &userChoice);
+    flushInput();
     userChoice = tolower(userChoice);    
     //Error checks to make sure the user put something valid
     assert(userChoice == 'y' || userChoice == 'n');
 
     //If y was input, sets the userMessage to the default message
     if (userChoice == 'y'){
-        strcpy(userMessage, "Cats <3");
+        strcpy(messageBank, "Cats <3");
     //Otherwise, takes in a message from the user and thanks them
     }else{
         printf("Provide a user message (max length of %d): \n", maxLength);
-        fgets(userMessage, maxLength, stdin);
+        fgets(messageBank, maxLength, stdin);
+        //remove newline
+        messageBank[strcspn(messageBank, "\n")] = '\0';
         printf("Thank you for the message! :^)\n");
     }
+    char *userMessage = (char*) malloc (strlen(messageBank) + 1);
+    strcpy(userMessage, messageBank);
 
     return userMessage;
+}
+
+void flushInput(){
+    // read until end of buffer
+    int buffer;
+    while ((buffer = getchar()) != '\n' && buffer != EOF);
 }

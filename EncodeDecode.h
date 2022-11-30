@@ -56,7 +56,7 @@ Binary asciiToBinary(char ascii);
  * This function takes in a string
  * of 0s and 1s and translates it into a letter in ascii
  */ 
-short binaryToAscii(Binary binary);
+char binaryToAscii(Binary binary);
 
 /* Parameters: header - a header struct that holds the image height and width
  * Return: output - a pointer to a string of

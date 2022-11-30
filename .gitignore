@@ -7,3 +7,4 @@ output.ppm
 input2.ppm
 *.log
 output*
+*.gz

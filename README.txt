@@ -1,27 +1,28 @@
-People: Lucia Wang and Ivan Lin
+Ivan Lin
+Partner: Lucia Wang
 
-Problems:
-At first, we were having issues creating the decoded image as the image came out looking like TV static.
-Next, we had issues with understanding when to begin reading for an encoded message and when to stop reading
-for an encoded image.
-Traversing through the image to find the specific pixel with the encoded message without 10 count variables was also a challenge.
-Finally, we had an issue getting the user choice in our extra credit menu where the program would crash.
-
-Solutions:
-The solution to the first problem was to create a character bank and append a new line. 
-Next, a closer reading of the instructions in the hand-out gave a better understanding that the messgae begins at from the 
-first pixel and ends when the value of the bits is over 255.
-To traverse through the image, the last bit of an RGB pixel was calculated and then the for loop variables were updated
-to find the next encoded/decoded bit.
-Finally, we used scanf("%c%*c", &userChoice); instead of scanf("%c", &userChoice); to get the user choice and it did not
-crash the program (something to do with the whitespace?).
+Description:
+The first problem that occurred was the image did not print correctly. It turns
+out that on Windows the file must be opened in binary. The second problem
+that occurred was that the decoded message was partially correct. Half of the
+message was gibberish. The solution was to stop reading the file when the bits
+add up to 0 which translates to NUL or the null byte in ascii. Lastly,
+the message we were trying to get from the user failed to read correctly. It
+skipped the next prompt for user input. The solution was to flush the new line
+out by reading and discarding it.
 
 Thoughts:
-I liked the amount of freedom given to us to complete this project in terms of how to encode and decode messages in 
-an image. I also like how it incorporated a lot of topics that we learned in class. However, I felt that the instructions
-and explanation given in the .pdf was confusing in how to encode and decode messgaes from an image.
+The concept of the assignment was fine; however, the instructions were
+so unclear that I had to sanitize my 4k monitor with bleach. The tip on when to
+stop decoding fails to make sense since it is impossible to have a bit over 255
+when the first bit is always 0 leaving only 8 usable bits.
+There are no example inputs or outputs of the program. I did not how to encode
+the remaining image after encoding the message,
+which forced me to print the sample ppm file in plaintext; I determined that
+the remaining bits should be 0s.
 
-Bitwise Operation:
-We chose to use the leftshift operator in our function to translate binary to ascii (char binaryToAscii(Binary binary)) 
-by adding up positions in binary marked with a 1 by 2^k with k representing the positions starting from the right at 0. 
-We did this as leftshifts esssentially 2^k, which is needed to translate binary to decimal.
+Bitwise or shift operation:
+We used right shift operation in the function binaryToAscii to simulate how we
+would normally convert binary to decimal which is adding up all the bits by
+b*2^k where k is the position of the bit starting at 0 and b represents the bit
+0 or 1.

@@ -34,3 +34,6 @@ else
 clean:
 	rm -f *.o *.out *.exe
 endif
+
+tar: $(MAIN) $(SRC) $(HEADERS) README.txt makefile
+	tar -czvf PA2EC.tar.gz $^

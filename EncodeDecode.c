@@ -32,11 +32,11 @@ char* decodeImage(Image image){
 
             //Sets a char equal to the binary translated
             //to ascii and frees the data pointer
-            short ascii = binaryToAscii(binary);
+            char ascii = binaryToAscii(binary);
             free(binary.data);
 
             //decoding terminates when ascii value is 0 or somehow above 255
-            if (ascii == 0 || ascii > 255){
+            if (ascii == 0){
                 i = image.height;
                 break;
             }
@@ -119,10 +119,10 @@ Binary asciiToBinary(char ascii){
     return binary;
 }
 
-short binaryToAscii(Binary binary){
+char binaryToAscii(Binary binary){
     //Translates a binary to a character in ascii
     //using the bitwise operation left shift
-    short ascii = 0;
+    char ascii = 0;
     for (int i = binary.length-1; i >= 0; --i) {
         ascii += (binary.data[i] << (binary.length - 1 - i));
     }

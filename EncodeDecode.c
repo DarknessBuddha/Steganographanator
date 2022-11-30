@@ -35,7 +35,7 @@ char* decodeImage(Image image){
             char ascii = binaryToAscii(binary);
             free(binary.data);
 
-            //decoding terminates when ascii value is 0 or somehow above 255
+            //decoding terminates when ascii value is 0
             if (ascii == 0){
                 i = image.height;
                 break;
